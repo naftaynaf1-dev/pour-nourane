@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pour Nourane ❤️</title>
 
 <style>
@@ -9,19 +10,20 @@ body {
   margin: 0;
   padding: 0;
   background: linear-gradient(to bottom right, #ff9ecb, #ffd6e8);
+  
   font-family: Arial, sans-serif;
   text-align: center;
   overflow-x: hidden;
 }
 
-h1 { color: white; margin-top: 40px; }
-.message { color: white; font-size: 20px; }
+h1 { color: white; margin-top: 30px; font-size: 28px; }
+.message { color: white; font-size: 16px; padding: 0 10px; }
 
 .box {
   background: white;
-  padding: 20px;
-  margin: 20px auto;
-  width: 85%;
+  padding: 15px;
+  margin: 15px auto;
+  width: 92%;
   border-radius: 20px;
   box-shadow: 0 0 20px pink;
 }
@@ -29,12 +31,14 @@ h1 { color: white; margin-top: 40px; }
 button {
   background: #ff4da6;
   border: none;
-  padding: 15px 25px;
+  padding: 15px;
+  width: 85%;
   color: white;
   font-size: 18px;
   border-radius: 30px;
   cursor: pointer;
-  margin: 10px;
+  margin: 8px auto;
+  display: block;
 }
 
 .hidden { display: none; }
@@ -43,16 +47,16 @@ button {
   position: fixed;
   top: -10px;
   color: red;
-  font-size: 24px;
+  font-size: 22px;
   animation: fall linear infinite;
 }
 @keyframes fall { to { transform: translateY(100vh); } }
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
-  margin-top: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 10px;
 }
 .gallery img {
   width: 100%;
@@ -61,10 +65,16 @@ button {
 }
 
 input {
-  padding: 10px;
+  padding: 12px;
   border-radius: 10px;
   border: 1px solid #ccc;
-  margin: 10px;
+  margin: 8px;
+  width: 80%;
+  font-size: 16px;
+}
+
+iframe {
+  border-radius: 15px;
 }
 </style>
 </head>
@@ -89,18 +99,16 @@ input {
 <p>• Tu es mon plus beau cadeau 🎁</p>
 </div>
 
-<button onclick="showLove()">Message pour Nourane 💌</button>
-<button onclick="showSurprise()">Surprise pour Nourane 🎁</button>
-<button onclick="openSecret()">Zone Secrète 🔐</button>
+<button onclick="showLove()">💌 Message</button>
+<button onclick="showSurprise()">🎁 Surprise</button>
+<button onclick="openSecret()">🔐 Zone Secrète</button>
 
 <div id="loveMessage" class="box hidden">
   <h2>Nourane, je t’aime énormément 💖</h2>
-  <p>Merci d’être dans ma vie. Chaque moment avec toi est précieux.</p>
 </div>
 
 <div id="surpriseMessage" class="box hidden">
-  <h2>Tu es mon bonheur, Nourane ❤️</h2>
-  <p>Je veux toujours te voir sourire 😊</p>
+  <h2>Tu es mon bonheur ❤️</h2>
 </div>
 
 <div class="box">
@@ -115,7 +123,6 @@ input {
 
 <div id="secretBox" class="box hidden">
   <h2>🔐 Accès Secret</h2>
-  <p>Entre le mot de passe :</p>
   <input type="password" id="passwordInput" placeholder="Mot de passe">
   <button onclick="checkPassword()">Valider</button>
 
@@ -128,55 +135,51 @@ input {
   <p id="resultMessage"></p>
 </div>
 
+<div class="box">
+  <h2>💖 Questionnaire spécial pour Nourane 💖</h2>
+  <p>Réponds à ces questions sur nous 😘</p>
+
+  <iframe 
+    src="https://docs.google.com/forms/d/e/1FAIpQLScDAjJwb-FszVTwSJZEhGg9QVAgrjb0soMz2AMk-UiE1Z2Low/viewform?embedded=true" 
+    width="100%" 
+    height="800" 
+    frameborder="0">
+    Chargement…
+  </iframe>
+</div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-window.showLove = function() {
-  document.getElementById("loveMessage").classList.remove("hidden");
-}
+window.showLove = () => loveMessage.classList.remove("hidden");
+window.showSurprise = () => surpriseMessage.classList.remove("hidden");
+window.openSecret = () => secretBox.classList.remove("hidden");
 
-window.showSurprise = function() {
-  document.getElementById("surpriseMessage").classList.remove("hidden");
-}
+window.checkPassword = () => {
+  if (passwordInput.value === "nourane") questionBox.classList.remove("hidden");
+  else alert("Mot de passe incorrect 💔");
+};
 
-window.openSecret = function() {
-  document.getElementById("secretBox").classList.remove("hidden");
-}
-
-window.checkPassword = function() {
-  const password = document.getElementById("passwordInput").value;
-  if (password === "nourane") {
-    document.getElementById("questionBox").classList.remove("hidden");
-  } else {
-    alert("Mot de passe incorrect 💔");
-  }
-}
-
-window.checkAnswer = function() {
-  const answer = document.getElementById("answerInput").value.toLowerCase();
-  if (answer === "habibi") {
-    document.getElementById("resultMessage").innerText = "You got it right +1 🎉💖";
-  } else {
-    document.getElementById("resultMessage").innerText = "Essaie encore 🥺";
-  }
-}
+window.checkAnswer = () => {
+  if (answerInput.value.toLowerCase() === "habibi")
+    resultMessage.innerText = "You got it right +1 🎉💖";
+  else resultMessage.innerText = "Essaie encore 🥺";
+};
 
 function updateLoveCounter() {
   const startDate = new Date("2023-11-13");
-  const today = new Date();
-  const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-  document.getElementById("loveCounter").innerText =
-    "On est ensemble depuis " + diffDays + " jours ❤️";
+  const diffDays = Math.floor((new Date() - startDate) / (1000*60*60*24));
+  loveCounter.innerText = "Ensemble depuis " + diffDays + " jours ❤️";
 }
 
 function createHeart() {
   const heart = document.createElement("div");
-  heart.classList.add("heart");
+  heart.className = "heart";
   heart.innerHTML = "❤️";
-  heart.style.left = Math.random() * window.innerWidth + "px";
-  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  heart.style.left = Math.random()*100+"vw";
+  heart.style.animationDuration = (Math.random()*3+2)+"s";
   document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 5000);
+  setTimeout(()=>heart.remove(),5000);
 }
 
 updateLoveCounter();
