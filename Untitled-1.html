@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Pour Nourane ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom right, #ff9ecb, #ffd6e8);
+  font-family: Arial, sans-serif;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+h1 { color: white; margin-top: 40px; }
+.message { color: white; font-size: 20px; }
+
+.box {
+  background: white;
+  padding: 20px;
+  margin: 20px auto;
+  width: 85%;
+  border-radius: 20px;
+  box-shadow: 0 0 20px pink;
+}
+
+button {
+  background: #ff4da6;
+  border: none;
+  padding: 15px 25px;
+  color: white;
+  font-size: 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.hidden { display: none; }
+
+.heart {
+  position: fixed;
+  top: -10px;
+  color: red;
+  font-size: 24px;
+  animation: fall linear infinite;
+}
+@keyframes fall { to { transform: translateY(100vh); } }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+.gallery img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 10px #ff80bf;
+}
+
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Bienvenue dans le monde de Nourane 💖</h1>
+<p class="message">Ce site est uniquement pour toi, Nourane ✨</p>
+
+<div class="box">
+  <h2>Nous deux 💑</h2>
+  <img src="nous.jpg" style="width:100%; border-radius:20px; box-shadow:0 0 20px pink;">
+  <p>Chaque moment avec toi est un souvenir précieux 💖</p>
+  <p id="loveCounter" style="font-weight:bold; color:#ff4da6;"></p>
+</div>
+
+<div class="box">
+<h2>Pourquoi j’aime Nourane ❤️</h2>
+<p>• Ton sourire illumine mes journées</p>
+<p>• Tu me rends meilleur</p>
+<p>• Avec toi je suis heureux</p>
+<p>• Tu es mon plus beau cadeau 🎁</p>
+</div>
+
+<button onclick="showLove()">Message pour Nourane 💌</button>
+<button onclick="showSurprise()">Surprise pour Nourane 🎁</button>
+<button onclick="openSecret()">Zone Secrète 🔐</button>
+
+<div id="loveMessage" class="box hidden">
+  <h2>Nourane, je t’aime énormément 💖</h2>
+  <p>Merci d’être dans ma vie. Chaque moment avec toi est précieux.</p>
+</div>
+
+<div id="surpriseMessage" class="box hidden">
+  <h2>Tu es mon bonheur, Nourane ❤️</h2>
+  <p>Je veux toujours te voir sourire 😊</p>
+</div>
+
+<div class="box">
+<h2>Nos Fitcheck 👟✨</h2>
+<div class="gallery">
+  <img src="photo1.jpg">
+  <img src="photo2.jpg">
+  <img src="photo3.jpg">
+  <img src="photo4.jpg">
+</div>
+</div>
+
+<div id="secretBox" class="box hidden">
+  <h2>🔐 Accès Secret</h2>
+  <p>Entre le mot de passe :</p>
+  <input type="password" id="passwordInput" placeholder="Mot de passe">
+  <button onclick="checkPassword()">Valider</button>
+
+  <div id="questionBox" class="hidden">
+    <h3>C’est qui Nafaa pour toi ?</h3>
+    <input type="text" id="answerInput" placeholder="Ta réponse">
+    <button onclick="checkAnswer()">Répondre</button>
+  </div>
+
+  <p id="resultMessage"></p>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+window.showLove = function() {
+  document.getElementById("loveMessage").classList.remove("hidden");
+}
+
+window.showSurprise = function() {
+  document.getElementById("surpriseMessage").classList.remove("hidden");
+}
+
+window.openSecret = function() {
+  document.getElementById("secretBox").classList.remove("hidden");
+}
+
+window.checkPassword = function() {
+  const password = document.getElementById("passwordInput").value;
+  if (password === "nourane") {
+    document.getElementById("questionBox").classList.remove("hidden");
+  } else {
+    alert("Mot de passe incorrect 💔");
+  }
+}
+
+window.checkAnswer = function() {
+  const answer = document.getElementById("answerInput").value.toLowerCase();
+  if (answer === "habibi") {
+    document.getElementById("resultMessage").innerText = "You got it right +1 🎉💖";
+  } else {
+    document.getElementById("resultMessage").innerText = "Essaie encore 🥺";
+  }
+}
+
+function updateLoveCounter() {
+  const startDate = new Date("2023-11-13");
+  const today = new Date();
+  const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+  document.getElementById("loveCounter").innerText =
+    "On est ensemble depuis " + diffDays + " jours ❤️";
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+
+updateLoveCounter();
+setInterval(createHeart, 300);
+
+});
+</script>
+
+</body>
+</html>
