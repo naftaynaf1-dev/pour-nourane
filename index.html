@@ -10,14 +10,13 @@ body {
   margin: 0;
   padding: 0;
   background: linear-gradient(to bottom right, #ff9ecb, #ffd6e8);
-  
   font-family: Arial, sans-serif;
   text-align: center;
   overflow-x: hidden;
 }
 
-h1 { color: white; margin-top: 30px; font-size: 28px; }
-.message { color: white; font-size: 16px; padding: 0 10px; }
+h1 { color: white; margin-top: 30px; font-size: 26px; }
+.message { color: white; font-size: 16px; }
 
 .box {
   background: white;
@@ -41,7 +40,19 @@ button {
   display: block;
 }
 
-.hidden { display: none; }
+.hidden { display: none !important; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 10px #ff80bf;
+}
 
 .heart {
   position: fixed;
@@ -52,29 +63,26 @@ button {
 }
 @keyframes fall { to { transform: translateY(100vh); } }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 10px;
-}
-.gallery img {
+/* POPUP */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
   width: 100%;
-  border-radius: 15px;
-  box-shadow: 0 0 10px #ff80bf;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  display: none;
 }
+.popup.show { display: flex; }
 
-input {
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  margin: 8px;
-  width: 80%;
-  font-size: 16px;
-}
-
-iframe {
-  border-radius: 15px;
+.popup-content {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  font-size: 20px;
+  box-shadow: 0 0 20px pink;
 }
 </style>
 </head>
@@ -82,23 +90,18 @@ iframe {
 <body>
 
 <h1>Bienvenue dans le monde de Nourane 💖</h1>
-<p class="message">Ce site est uniquement pour toi, Nourane ✨</p>
+<p class="message">Ce site est uniquement pour toi ✨</p>
 
-<div class="box">
-  <h2>Nous deux 💑</h2>
-  <img src="nous.jpg" style="width:100%; border-radius:20px; box-shadow:0 0 20px pink;">
-  <p>Chaque moment avec toi est un souvenir précieux 💖</p>
-  <p id="loveCounter" style="font-weight:bold; color:#ff4da6;"></p>
+<!-- 💘 OUR DATE -->
+<button onclick="openDateBox()">💖 Our Date 💖</button>
+
+<div id="dateBox" class="box hidden">
+  <h2>Will you be my date tomorrow? 💌</h2>
+  <button id="yesBtn">OUI 💖</button>
+  <button id="noBtn">NON 😏</button>
 </div>
 
-<div class="box">
-<h2>Pourquoi j’aime Nourane ❤️</h2>
-<p>• Ton sourire illumine mes journées</p>
-<p>• Tu me rends meilleur</p>
-<p>• Avec toi je suis heureux</p>
-<p>• Tu es mon plus beau cadeau 🎁</p>
-</div>
-
+<!-- 💌 ANCIENS BOUTONS -->
 <button onclick="showLove()">💌 Message</button>
 <button onclick="showSurprise()">🎁 Surprise</button>
 <button onclick="openSecret()">🔐 Zone Secrète</button>
@@ -111,6 +114,29 @@ iframe {
   <h2>Tu es mon bonheur ❤️</h2>
 </div>
 
+<!-- 🔐 SECRET -->
+<div id="secretBox" class="box hidden">
+  <h2>Accès Secret 🔐</h2>
+  <input type="password" id="passwordInput" placeholder="Mot de passe">
+  <button onclick="checkPassword()">Valider</button>
+
+  <div id="questionBox" class="hidden">
+    <h3>C’est qui Nafaa pour toi ?</h3>
+    <input type="text" id="answerInput">
+    <button onclick="checkAnswer()">Répondre</button>
+  </div>
+
+  <p id="resultMessage"></p>
+</div>
+
+<!-- 📸 PHOTO -->
+<div class="box">
+  <h2>Nous deux 💑</h2>
+  <img src="nous.jpg" style="width:100%; border-radius:20px;">
+  <p id="loveCounter" style="font-weight:bold; color:#ff4da6;"></p>
+</div>
+
+<!-- 👟 FITCHECK -->
 <div class="box">
 <h2>Nos Fitcheck 👟✨</h2>
 <div class="gallery">
@@ -121,31 +147,18 @@ iframe {
 </div>
 </div>
 
-<div id="secretBox" class="box hidden">
-  <h2>🔐 Accès Secret</h2>
-  <input type="password" id="passwordInput" placeholder="Mot de passe">
-  <button onclick="checkPassword()">Valider</button>
-
-  <div id="questionBox" class="hidden">
-    <h3>C’est qui Nafaa pour toi ?</h3>
-    <input type="text" id="answerInput" placeholder="Ta réponse">
-    <button onclick="checkAnswer()">Répondre</button>
-  </div>
-
-  <p id="resultMessage"></p>
+<!-- 📝 FORM -->
+<div class="box">
+<h2>💖 Questionnaire spécial 💖</h2>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScDAjJwb-FszVTwSJZEhGg9QVAgrjb0soMz2AMk-UiE1Z2Low/viewform?embedded=true" width="100%" height="800"></iframe>
 </div>
 
-<div class="box">
-  <h2>💖 Questionnaire spécial pour Nourane 💖</h2>
-  <p>Réponds à ces questions sur nous 😘</p>
-
-  <iframe 
-    src="https://docs.google.com/forms/d/e/1FAIpQLScDAjJwb-FszVTwSJZEhGg9QVAgrjb0soMz2AMk-UiE1Z2Low/viewform?embedded=true" 
-    width="100%" 
-    height="800" 
-    frameborder="0">
-    Chargement…
-  </iframe>
+<!-- POPUP -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    YAAAY 💖 Merci mon amour 😘<br><br>
+    <span style="color:#800020; font-size:24px; font-weight:bold;">burgundy</span>
+  </div>
 </div>
 
 <script>
@@ -154,6 +167,19 @@ document.addEventListener("DOMContentLoaded", function () {
 window.showLove = () => loveMessage.classList.remove("hidden");
 window.showSurprise = () => surpriseMessage.classList.remove("hidden");
 window.openSecret = () => secretBox.classList.remove("hidden");
+window.openDateBox = () => dateBox.classList.remove("hidden");
+
+yesBtn.addEventListener("click", () => popup.classList.add("show"));
+popup.addEventListener("click", () => popup.classList.remove("show"));
+
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("click", moveNo);
+
+function moveNo() {
+  noBtn.style.position = "absolute";
+  noBtn.style.left = Math.random()*80 + "vw";
+  noBtn.style.top = Math.random()*60 + "vh";
+}
 
 window.checkPassword = () => {
   if (passwordInput.value === "nourane") questionBox.classList.remove("hidden");
