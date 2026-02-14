@@ -63,7 +63,7 @@ button {
 }
 @keyframes fall { to { transform: translateY(100vh); } }
 
-/* Popup styling - CORRIGÉ */
+/* Popup styling */
 .popup {
   position: fixed;
   top: 0;
@@ -71,14 +71,14 @@ button {
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.6);
-  display: none;  /* Caché par défaut */
+  display: none;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
 .popup.show { 
-  display: flex !important;  /* Forcé quand on veut l'afficher */
+  display: flex !important;
 }
 
 .popup-content {
@@ -122,7 +122,8 @@ button {
   </div>
 </div>
 
-<audio id="valentineMusic" src="valentine.mp3"></audio>
+<!-- AUDIO - Corrigé avec valentine.m4a -->
+<audio id="valentineMusic" src="valentine.m4a"></audio>
 
 <!-- OUR DATE -->
 <button onclick="openDateBox()">💖 Our Date 💖</button>
@@ -222,7 +223,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // Fonction pour jouer la musique
   window.playValentineMusic = function() {
     if (valentineMusic) {
-      valentineMusic.play().catch(e => console.log("Erreur de lecture audio:", e));
+      valentineMusic.play().catch(e => {
+        console.log("Erreur de lecture audio:", e);
+        alert("Clique sur la page d'abord pour autoriser la musique 🎵");
+      });
     }
   };
 
