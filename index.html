@@ -91,6 +91,30 @@ button {
 <h1>Bienvenue dans le monde de Nourane 💖</h1>
 <p class="message">Ce site est uniquement pour toi ✨</p>
 
+<!-- 🌹 VALENTINE -->
+<button onclick="openValentine()">🌹 Happy Valentine ❤️</button>
+
+<div id="valentineBox" class="popup">
+  <div class="popup-content">
+    <h2 style="color:#ff4da6;">Happy Valentine My Love 💖</h2>
+
+    <img src="valentine.jpg" style="width:100%; border-radius:20px; margin:15px 0; box-shadow:0 0 15px pink;">
+
+    <p>Every day with you feels like February 14 🌹</p>
+    <p>You are my safe place 🤍</p>
+
+    <h1 style="font-size:50px;">❤️</h1>
+
+    <p style="font-style:italic;">
+      “With you, forever isn’t long enough.”
+    </p>
+
+    <button onclick="playValentineMusic()">🎵 Play Our Song</button>
+  </div>
+</div>
+
+<audio id="valentineMusic" src="valentine.mp3"></audio>
+
 <!-- OUR DATE -->
 <button onclick="openDateBox()">💖 Our Date 💖</button>
 
@@ -100,7 +124,7 @@ button {
   <button id="noBtn">NON 😏</button>
 
   <div style="margin-top:20px;">
-    <img src="safeplace.jpg" style="width:100%; border-radius:20px; box-shadow:0 0 15px pink;">
+    <img src="safeplace.jpg" style="width:100%; border-radius:20px;">
     <h3 style="color:#ff4da6;">YOU ARE MY SAFE PLACE 🤍</h3>
   </div>
 
@@ -108,7 +132,7 @@ button {
     <h3>Notre date 💘</h3>
     <iframe 
       src="https://docs.google.com/forms/d/e/1FAIpQLSd05rssQgB193uJqZjcBIGj36TRMg11mWX3-tZsAVepq6Ua1g/viewform?embedded=true" 
-      width="100%" height="800" frameborder="0">
+      width="100%" height="800">
     </iframe>
   </div>
 </div>
@@ -156,16 +180,18 @@ button {
 </div>
 </div>
 
-<!-- POPUP -->
-<div id="popup" class="popup">
-  <div class="popup-content">
-    YAAAY 💖 Merci mon amour 😘<br><br>
-    <span style="color:#800020; font-size:24px; font-weight:bold;">burgundy</span>
-  </div>
-</div>
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+
+window.openValentine = () => valentineBox.classList.add("show");
+
+window.playValentineMusic = () => valentineMusic.play();
+
+valentineBox.addEventListener("click", function(e){
+  if(e.target === valentineBox){
+    valentineBox.classList.remove("show");
+  }
+});
 
 window.showLove = () => loveMessage.classList.remove("hidden");
 window.showSurprise = () => surpriseMessage.classList.remove("hidden");
@@ -173,7 +199,6 @@ window.openSecret = () => secretBox.classList.remove("hidden");
 window.openDateBox = () => dateBox.classList.remove("hidden");
 
 yesBtn.addEventListener("click", () => popup.classList.add("show"));
-popup.addEventListener("click", () => popup.classList.remove("show"));
 
 noBtn.addEventListener("mouseover", moveNo);
 noBtn.addEventListener("click", moveNo);
@@ -201,18 +226,7 @@ function updateLoveCounter() {
   loveCounter.innerText = "Ensemble depuis " + diffDays + " jours ❤️";
 }
 
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random()*100+"vw";
-  heart.style.animationDuration = (Math.random()*3+2)+"s";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),5000);
-}
-
 updateLoveCounter();
-setInterval(createHeart, 300);
 
 });
 </script>
