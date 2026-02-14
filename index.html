@@ -69,10 +69,10 @@ button {
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.6);
+  display: none;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  display: none;
 }
 .popup.show { display: flex; }
 
@@ -81,6 +81,9 @@ button {
   padding: 30px;
   border-radius: 20px;
   font-size: 20px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
   box-shadow: 0 0 20px pink;
 }
 </style>
@@ -98,7 +101,7 @@ button {
   <div class="popup-content">
     <h2 style="color:#ff4da6;">Happy Valentine My Love 💖</h2>
 
-    <img src="valentine.jpg" style="width:100%; border-radius:20px; margin:15px 0; box-shadow:0 0 15px pink;">
+    <img src="valentine.jpg" alt="Valentine" style="width:100%; border-radius:20px; margin:15px 0; box-shadow:0 0 15px pink;">
 
     <p>Every day with you feels like February 14 🌹</p>
     <p>You are my safe place 🤍</p>
@@ -124,7 +127,7 @@ button {
   <button id="noBtn">NON 😏</button>
 
   <div style="margin-top:20px;">
-    <img src="safeplace.jpg" style="width:100%; border-radius:20px;">
+    <img src="safeplace.jpg" alt="Safe place" style="width:100%; border-radius:20px;">
     <h3 style="color:#ff4da6;">YOU ARE MY SAFE PLACE 🤍</h3>
   </div>
 
@@ -165,7 +168,7 @@ button {
 <!-- PHOTO -->
 <div class="box">
   <h2>Nous deux 💑</h2>
-  <img src="nous.jpg" style="width:100%; border-radius:20px;">
+  <img src="nous.jpg" alt="Nous deux" style="width:100%; border-radius:20px;">
   <p id="loveCounter" style="font-weight:bold; color:#ff4da6;"></p>
 </div>
 
@@ -173,84 +176,116 @@ button {
 <div class="box">
 <h2>Nos Fitcheck 👟✨</h2>
 <div class="gallery">
-  <img src="photo1.jpg">
-  <img src="photo2.jpg">
-  <img src="photo3.jpg">
-  <img src="photo4.jpg">
+  <img src="photo1.jpg" alt="Fitcheck 1">
+  <img src="photo2.jpg" alt="Fitcheck 2">
+  <img src="photo3.jpg" alt="Fitcheck 3">
+  <img src="photo4.jpg" alt="Fitcheck 4">
 </div>
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+  // Récupération des éléments
+  const valentineBox = document.getElementById('valentineBox');
+  const valentineMusic = document.getElementById('valentineMusic');
+  const loveMessage = document.getElementById('loveMessage');
+  const surpriseMessage = document.getElementById('surpriseMessage');
+  const secretBox = document.getElementById('secretBox');
+  const dateBox = document.getElementById('dateBox');
+  const noBtn = document.getElementById('noBtn');
+  const passwordInput = document.getElementById('passwordInput');
+  const questionBox = document.getElementById('questionBox');
+  const answerInput = document.getElementById('answerInput');
+  const resultMessage = document.getElementById('resultMessage');
+  const loveCounter = document.getElementById('loveCounter');
 
-window.openValentine = () => {
-  valentineBox.classList.add("show");
-};
+  // Fonction pour ouvrir la popup Valentine
+  window.openValentine = function() {
+    if (valentineBox) {
+      valentineBox.classList.add("show");
+    }
+  };
 
-window.playValentineMusic = () => {
-  valentineMusic.play();
-};
+  // Fonction pour jouer la musique
+  window.playValentineMusic = function() {
+    if (valentineMusic) {
+      valentineMusic.play().catch(e => console.log("Erreur de lecture audio:", e));
+    }
+  };
 
-valentineBox.addEventListener("click", function(e){
-  if(e.target === valentineBox){
-    valentineBox.classList.remove("show");
+  // Fermer la popup en cliquant sur le fond
+  if (valentineBox) {
+    valentineBox.addEventListener("click", function(e){
+      if(e.target === valentineBox){
+        valentineBox.classList.remove("show");
+      }
+    });
   }
-});
 
-window.showLove = () => {
-  if (typeof loveMessage !== "undefined")
-    loveMessage.classList.remove("hidden");
-};
+  // Fonctions pour afficher les autres boîtes
+  window.showLove = function() {
+    if (loveMessage) loveMessage.classList.remove("hidden");
+  };
 
-window.showSurprise = () => {
-  if (typeof surpriseMessage !== "undefined")
-    surpriseMessage.classList.remove("hidden");
-};
+  window.showSurprise = function() {
+    if (surpriseMessage) surpriseMessage.classList.remove("hidden");
+  };
 
-window.openSecret = () => {
-  if (typeof secretBox !== "undefined")
-    secretBox.classList.remove("hidden");
-};
+  window.openSecret = function() {
+    if (secretBox) secretBox.classList.remove("hidden");
+  };
 
-window.openDateBox = () => {
-  if (typeof dateBox !== "undefined")
-    dateBox.classList.remove("hidden");
-};
+  window.openDateBox = function() {
+    if (dateBox) dateBox.classList.remove("hidden");
+  };
 
-if (typeof noBtn !== "undefined") {
-  noBtn.addEventListener("mouseover", moveNo);
-  noBtn.addEventListener("click", moveNo);
-}
+  // Animation du bouton NON
+  if (noBtn) {
+    noBtn.addEventListener("mouseover", moveNo);
+    noBtn.addEventListener("click", moveNo);
+  }
 
-function moveNo() {
-  noBtn.style.position = "absolute";
-  noBtn.style.left = Math.random()*80 + "vw";
-  noBtn.style.top = Math.random()*60 + "vh";
-}
+  function moveNo() {
+    if (noBtn) {
+      noBtn.style.position = "absolute";
+      noBtn.style.left = Math.random()*80 + "vw";
+      noBtn.style.top = Math.random()*60 + "vh";
+    }
+  }
 
-window.checkPassword = () => {
-  if (passwordInput.value === "nourane")
-    questionBox.classList.remove("hidden");
-  else alert("Mot de passe incorrect 💔");
-};
+  // Vérification du mot de passe
+  window.checkPassword = function() {
+    if (passwordInput && passwordInput.value === "nourane") {
+      if (questionBox) questionBox.classList.remove("hidden");
+    } else {
+      alert("Mot de passe incorrect 💔");
+    }
+  };
 
-window.checkAnswer = () => {
-  if (answerInput.value.toLowerCase() === "habibi")
-    resultMessage.innerText = "You got it right +1 🎉💖";
-  else resultMessage.innerText = "Essaie encore 🥺";
-};
+  // Vérification de la réponse
+  window.checkAnswer = function() {
+    if (answerInput && resultMessage) {
+      if (answerInput.value.toLowerCase() === "habibi") {
+        resultMessage.innerText = "You got it right +1 🎉💖";
+      } else {
+        resultMessage.innerText = "Essaie encore 🥺";
+      }
+    }
+  };
 
-function updateLoveCounter() {
-  const startDate = new Date("2023-11-13");
-  const diffDays = Math.floor((new Date() - startDate) / (1000*60*60*24));
-  loveCounter.innerText = "Ensemble depuis " + diffDays + " jours ❤️";
-}
+  // Compteur de jours
+  function updateLoveCounter() {
+    if (loveCounter) {
+      const startDate = new Date("2023-11-13");
+      const diffDays = Math.floor((new Date() - startDate) / (1000*60*60*24));
+      loveCounter.innerText = "Ensemble depuis " + diffDays + " jours ❤️";
+    }
+  }
 
-updateLoveCounter();
+  updateLoveCounter();
 
 });
 </script>
 
 </body>
 </html>
-
