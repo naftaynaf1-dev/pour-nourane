@@ -198,10 +198,15 @@ window.showSurprise = () => surpriseMessage.classList.remove("hidden");
 window.openSecret = () => secretBox.classList.remove("hidden");
 window.openDateBox = () => dateBox.classList.remove("hidden");
 
-yesBtn.addEventListener("click", () => popup.classList.add("show"));
+/* ✅ CORRECTION ICI */
+if (typeof yesBtn !== "undefined") {
+  yesBtn.addEventListener("click", function(){});
+}
 
-noBtn.addEventListener("mouseover", moveNo);
-noBtn.addEventListener("click", moveNo);
+if (typeof noBtn !== "undefined") {
+  noBtn.addEventListener("mouseover", moveNo);
+  noBtn.addEventListener("click", moveNo);
+}
 
 function moveNo() {
   noBtn.style.position = "absolute";
