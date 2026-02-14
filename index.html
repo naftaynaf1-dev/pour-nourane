@@ -183,9 +183,13 @@ button {
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-window.openValentine = () => valentineBox.classList.add("show");
+window.openValentine = () => {
+  valentineBox.classList.add("show");
+};
 
-window.playValentineMusic = () => valentineMusic.play();
+window.playValentineMusic = () => {
+  valentineMusic.play();
+};
 
 valentineBox.addEventListener("click", function(e){
   if(e.target === valentineBox){
@@ -193,15 +197,25 @@ valentineBox.addEventListener("click", function(e){
   }
 });
 
-window.showLove = () => loveMessage.classList.remove("hidden");
-window.showSurprise = () => surpriseMessage.classList.remove("hidden");
-window.openSecret = () => secretBox.classList.remove("hidden");
-window.openDateBox = () => dateBox.classList.remove("hidden");
+window.showLove = () => {
+  if (typeof loveMessage !== "undefined")
+    loveMessage.classList.remove("hidden");
+};
 
-/* ✅ CORRECTION ICI */
-if (typeof yesBtn !== "undefined") {
-  yesBtn.addEventListener("click", function(){});
-}
+window.showSurprise = () => {
+  if (typeof surpriseMessage !== "undefined")
+    surpriseMessage.classList.remove("hidden");
+};
+
+window.openSecret = () => {
+  if (typeof secretBox !== "undefined")
+    secretBox.classList.remove("hidden");
+};
+
+window.openDateBox = () => {
+  if (typeof dateBox !== "undefined")
+    dateBox.classList.remove("hidden");
+};
 
 if (typeof noBtn !== "undefined") {
   noBtn.addEventListener("mouseover", moveNo);
@@ -215,7 +229,8 @@ function moveNo() {
 }
 
 window.checkPassword = () => {
-  if (passwordInput.value === "nourane") questionBox.classList.remove("hidden");
+  if (passwordInput.value === "nourane")
+    questionBox.classList.remove("hidden");
   else alert("Mot de passe incorrect 💔");
 };
 
@@ -238,3 +253,4 @@ updateLoveCounter();
 
 </body>
 </html>
+
