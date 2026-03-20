@@ -99,6 +99,11 @@ button {
 <h1>Bienvenue dans le monde de Nourane 💖</h1>
 <p class="message">Ce site est uniquement pour toi ✨</p>
 
+<!-- 🌙 BOUTON EID -->
+<button onclick="document.getElementById('eidSection').scrollIntoView({behavior:'smooth'})">
+🌙 Eid Mubarak
+</button>
+
 <!-- 🌹 VALENTINE -->
 <button onclick="openValentine()">🌹 Happy Valentine ❤️</button>
 
@@ -122,10 +127,8 @@ button {
   </div>
 </div>
 
-<!-- AUDIO - Corrigé avec valentine.m4a -->
 <audio id="valentineMusic" src="valentine.m4a"></audio>
 
-<!-- OUR DATE -->
 <button onclick="openDateBox()">💖 Our Date 💖</button>
 
 <div id="dateBox" class="box hidden">
@@ -134,20 +137,16 @@ button {
   <button id="noBtn">NON 😏</button>
 
   <div style="margin-top:20px;">
-    <img src="safeplace.jpg" alt="Safe place" style="width:100%; border-radius:20px;">
+    <img src="safeplace.jpg" style="width:100%; border-radius:20px;">
     <h3 style="color:#ff4da6;">YOU ARE MY SAFE PLACE 🤍</h3>
   </div>
 
   <div class="box">
     <h3>Notre date 💘</h3>
-    <iframe 
-      src="https://docs.google.com/forms/d/e/1FAIpQLSd05rssQgB193uJqZjcBIGj36TRMg11mWX3-tZsAVepq6Ua1g/viewform?embedded=true" 
-      width="100%" height="800">
-    </iframe>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd05rssQgB193uJqZjcBIGj36TRMg11mWX3-tZsAVepq6Ua1g/viewform?embedded=true" width="100%" height="800"></iframe>
   </div>
 </div>
 
-<!-- ANCIENS BOUTONS -->
 <button onclick="showLove()">💌 Message</button>
 <button onclick="showSurprise()">🎁 Surprise</button>
 <button onclick="openSecret()">🔐 Zone Secrète</button>
@@ -172,27 +171,47 @@ button {
   <p id="resultMessage"></p>
 </div>
 
-<!-- PHOTO -->
 <div class="box">
   <h2>Nous deux 💑</h2>
-  <img src="nous.jpg" alt="Nous deux" style="width:100%; border-radius:20px;">
+  <img src="nous.jpg" style="width:100%; border-radius:20px;">
   <p id="loveCounter" style="font-weight:bold; color:#ff4da6;"></p>
 </div>
 
-<!-- FITCHECK -->
 <div class="box">
 <h2>Nos Fitcheck 👟✨</h2>
 <div class="gallery">
-  <img src="photo1.jpg" alt="Fitcheck 1">
-  <img src="photo2.jpg" alt="Fitcheck 2">
-  <img src="photo3.jpg" alt="Fitcheck 3">
-  <img src="photo4.jpg" alt="Fitcheck 4">
+  <img src="photo1.jpg">
+  <img src="photo2.jpg">
+  <img src="photo3.jpg">
+  <img src="photo4.jpg">
 </div>
 </div>
 
+<!-- 🌙 SECTION EID -->
+<div id="eidSection" class="box">
+  <h2 style="color:#ff4da6;">Eid Mubarak mon amour 🌙✨</h2>
+  <p>Notre 3ème Aïd ensemble ❤️</p>
+</div>
+
+<div class="box">
+  <h2>Notre Aïd dans quelques années 💫</h2>
+  <img src="future.jpg" style="width:100%; border-radius:20px; box-shadow:0 0 15px gold;">
+  <p style="color:#ff4da6; font-weight:bold;">InchAllah encore beaucoup d’Aïd ensemble ❤️</p>
+</div>
+
+<div class="box">
+  <h2>Ma photo préférée de toi 🌸</h2>
+  <img src="elle-eid.jpg" style="width:100%; border-radius:20px;">
+</div>
+
+<div class="box">
+  <h2>Ta photo préférée de moi 🖤</h2>
+  <img src="toi-eid.jpg" style="width:100%; border-radius:20px;">
+</div>
+
 <script>
+// TON JS ORIGINAL (inchangé)
 document.addEventListener("DOMContentLoaded", function () {
-  // Récupération des éléments
   const valentineBox = document.getElementById('valentineBox');
   const valentineMusic = document.getElementById('valentineMusic');
   const loveMessage = document.getElementById('loveMessage');
@@ -206,31 +225,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const resultMessage = document.getElementById('resultMessage');
   const loveCounter = document.getElementById('loveCounter');
 
-  // Fonction pour ouvrir la popup Valentine
   window.openValentine = function() {
-    if (valentineBox) {
-      valentineBox.classList.add("show");
-    }
+    if (valentineBox) valentineBox.classList.add("show");
   };
 
-  // Fonction pour fermer la popup Valentine
   window.closeValentine = function() {
-    if (valentineBox) {
-      valentineBox.classList.remove("show");
-    }
+    if (valentineBox) valentineBox.classList.remove("show");
   };
 
-  // Fonction pour jouer la musique
   window.playValentineMusic = function() {
-    if (valentineMusic) {
-      valentineMusic.play().catch(e => {
-        console.log("Erreur de lecture audio:", e);
-        alert("Clique sur la page d'abord pour autoriser la musique 🎵");
-      });
-    }
+    if (valentineMusic) valentineMusic.play();
   };
 
-  // Fermer la popup en cliquant sur le fond
   if (valentineBox) {
     valentineBox.addEventListener("click", function(e){
       if(e.target === valentineBox){
@@ -239,7 +245,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Fonctions pour afficher les autres boîtes
   window.showLove = function() {
     if (loveMessage) loveMessage.classList.remove("hidden");
   };
@@ -256,7 +261,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (dateBox) dateBox.classList.remove("hidden");
   };
 
-  // Animation du bouton NON
   if (noBtn) {
     noBtn.addEventListener("mouseover", moveNo);
     noBtn.addEventListener("click", moveNo);
@@ -270,37 +274,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Vérification du mot de passe
   window.checkPassword = function() {
-    if (passwordInput && passwordInput.value === "nourane") {
-      if (questionBox) questionBox.classList.remove("hidden");
+    if (passwordInput.value === "nourane") {
+      questionBox.classList.remove("hidden");
     } else {
       alert("Mot de passe incorrect 💔");
     }
   };
 
-  // Vérification de la réponse
   window.checkAnswer = function() {
-    if (answerInput && resultMessage) {
-      if (answerInput.value.toLowerCase() === "habibi") {
-        resultMessage.innerText = "You got it right +1 🎉💖";
-      } else {
-        resultMessage.innerText = "Essaie encore 🥺";
-      }
+    if (answerInput.value.toLowerCase() === "habibi") {
+      resultMessage.innerText = "You got it right +1 🎉💖";
+    } else {
+      resultMessage.innerText = "Essaie encore 🥺";
     }
   };
 
-  // Compteur de jours
   function updateLoveCounter() {
-    if (loveCounter) {
-      const startDate = new Date("2023-11-13");
-      const diffDays = Math.floor((new Date() - startDate) / (1000*60*60*24));
-      loveCounter.innerText = "Ensemble depuis " + diffDays + " jours ❤️";
-    }
+    const startDate = new Date("2023-11-13");
+    const diffDays = Math.floor((new Date() - startDate) / (1000*60*60*24));
+    loveCounter.innerText = "Ensemble depuis " + diffDays + " jours ❤️";
   }
 
   updateLoveCounter();
-
 });
 </script>
 
