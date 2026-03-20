@@ -63,7 +63,6 @@ button {
 }
 @keyframes fall { to { transform: translateY(100vh); } }
 
-/* Popup styling */
 .popup {
   position: fixed;
   top: 0;
@@ -91,6 +90,17 @@ button {
   overflow-y: auto;
   box-shadow: 0 0 20px pink;
 }
+
+/* 🌙 effet Eid */
+body::before {
+  content: "🌙 ✨ 🌙 ✨";
+  position: fixed;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  opacity: 0.3;
+}
 </style>
 </head>
 
@@ -99,10 +109,8 @@ button {
 <h1>Bienvenue dans le monde de Nourane 💖</h1>
 <p class="message">Ce site est uniquement pour toi ✨</p>
 
-<!-- 🌙 BOUTON EID -->
-<button onclick="document.getElementById('eidSection').scrollIntoView({behavior:'smooth'})">
-🌙 Eid Mubarak
-</button>
+<!-- 🌙 BOUTON EID (POPUP) -->
+<button onclick="openEid()">🌙 Eid Mubarak</button>
 
 <!-- 🌹 VALENTINE -->
 <button onclick="openValentine()">🌹 Happy Valentine ❤️</button>
@@ -111,7 +119,7 @@ button {
   <div class="popup-content">
     <h2 style="color:#ff4da6;">Happy Valentine My Love 💖</h2>
 
-    <img src="valentine.jpg" alt="Valentine" style="width:100%; border-radius:20px; margin:15px 0; box-shadow:0 0 15px pink;">
+    <img src="valentine.jpg" style="width:100%; border-radius:20px; margin:15px 0; box-shadow:0 0 15px pink;">
 
     <p>Every day with you feels like February 14 🌹</p>
     <p>You are my safe place 🤍</p>
@@ -123,7 +131,37 @@ button {
     </p>
 
     <button onclick="playValentineMusic()">🎵 Play Our Song</button>
-    <button onclick="closeValentine()" style="background: #999; margin-top: 10px;">Fermer ✖</button>
+    <button onclick="closeValentine()" style="background: #999;">Fermer ✖</button>
+  </div>
+</div>
+
+<!-- 🌙 EID POPUP -->
+<div id="eidPopup" class="popup">
+  <div class="popup-content">
+
+    <h2 style="color:#ff4da6;">Eid Mubarak mon amour 🌙✨</h2>
+    <p>Notre 3ème Aïd ensemble ❤️</p>
+
+    <img src="future.jpg" style="width:100%; border-radius:20px; margin:15px 0; box-shadow:0 0 15px gold;">
+
+    <p style="color:#ff4da6; font-weight:bold;">
+      InchAllah encore beaucoup d’Aïd ensemble ❤️
+    </p>
+
+    <hr>
+
+    <h3>Pour toi 💌</h3>
+    <p style="color:#555;">
+      Eid Mubarak mon amour 🌙✨ <br><br>
+      C’est déjà notre 3ème Aïd ensemble… et chaque année avec toi est encore plus belle que la précédente.  
+      Merci d’être dans ma vie, merci pour tout ce que tu es.  
+      InchAllah encore plein d’Aïd ensemble ❤️
+    </p>
+
+    <img src="toi-eid.jpg" style="width:100%; border-radius:20px; margin-top:10px;">
+
+    <button onclick="closeEid()" style="background:#999; margin-top:15px;">Fermer ✖</button>
+
   </div>
 </div>
 
@@ -161,7 +199,7 @@ button {
 
 <div id="secretBox" class="box hidden">
   <h2>Accès Secret 🔐</h2>
-  <input type="password" id="passwordInput" placeholder="Mot de passe">
+  <input type="password" id="passwordInput">
   <button onclick="checkPassword()">Valider</button>
   <div id="questionBox" class="hidden">
     <h3>C'est qui Nafaa pour toi ?</h3>
@@ -174,7 +212,7 @@ button {
 <div class="box">
   <h2>Nous deux 💑</h2>
   <img src="nous.jpg" style="width:100%; border-radius:20px;">
-  <p id="loveCounter" style="font-weight:bold; color:#ff4da6;"></p>
+  <p id="loveCounter" style="color:#ff4da6;"></p>
 </div>
 
 <div class="box">
@@ -187,28 +225,11 @@ button {
 </div>
 </div>
 
-<!-- 🌙 SECTION EID -->
-<div id="eidSection" class="box">
-  <h2 style="color:#ff4da6;">Eid Mubarak mon amour 🌙✨</h2>
-  <p>Notre 3ème Aïd ensemble ❤️</p>
-</div>
-
-<div class="box">
-  <h2>Notre Aïd dans quelques années 💫</h2>
-  <img src="future.jpg" style="width:100%; border-radius:20px; box-shadow:0 0 15px gold;">
-  <p style="color:#ff4da6; font-weight:bold;">InchAllah encore beaucoup d’Aïd ensemble ❤️</p>
-</div>
-
-
-<div class="box">
-  <h2>Ma photo préférée de toi 🌸</h2>
-  <img src="toi-eid.jpg" style="width:100%; border-radius:20px;">
-</div>
-
 <script>
-// TON JS ORIGINAL (inchangé)
 document.addEventListener("DOMContentLoaded", function () {
+
   const valentineBox = document.getElementById('valentineBox');
+  const eidPopup = document.getElementById('eidPopup');
   const valentineMusic = document.getElementById('valentineMusic');
   const loveMessage = document.getElementById('loveMessage');
   const surpriseMessage = document.getElementById('surpriseMessage');
@@ -221,41 +242,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const resultMessage = document.getElementById('resultMessage');
   const loveCounter = document.getElementById('loveCounter');
 
-  window.openValentine = function() {
-    if (valentineBox) valentineBox.classList.add("show");
-  };
+  window.openValentine = () => valentineBox.classList.add("show");
+  window.closeValentine = () => valentineBox.classList.remove("show");
 
-  window.closeValentine = function() {
-    if (valentineBox) valentineBox.classList.remove("show");
-  };
+  window.openEid = () => eidPopup.classList.add("show");
+  window.closeEid = () => eidPopup.classList.remove("show");
 
-  window.playValentineMusic = function() {
-    if (valentineMusic) valentineMusic.play();
-  };
+  window.playValentineMusic = () => valentineMusic.play();
 
-  if (valentineBox) {
-    valentineBox.addEventListener("click", function(e){
-      if(e.target === valentineBox){
-        valentineBox.classList.remove("show");
-      }
-    });
-  }
+  valentineBox.addEventListener("click", e => { if(e.target===valentineBox) valentineBox.classList.remove("show"); });
+  eidPopup.addEventListener("click", e => { if(e.target===eidPopup) eidPopup.classList.remove("show"); });
 
-  window.showLove = function() {
-    if (loveMessage) loveMessage.classList.remove("hidden");
-  };
-
-  window.showSurprise = function() {
-    if (surpriseMessage) surpriseMessage.classList.remove("hidden");
-  };
-
-  window.openSecret = function() {
-    if (secretBox) secretBox.classList.remove("hidden");
-  };
-
-  window.openDateBox = function() {
-    if (dateBox) dateBox.classList.remove("hidden");
-  };
+  window.showLove = () => loveMessage.classList.remove("hidden");
+  window.showSurprise = () => surpriseMessage.classList.remove("hidden");
+  window.openSecret = () => secretBox.classList.remove("hidden");
+  window.openDateBox = () => dateBox.classList.remove("hidden");
 
   if (noBtn) {
     noBtn.addEventListener("mouseover", moveNo);
@@ -263,32 +264,25 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function moveNo() {
-    if (noBtn) {
-      noBtn.style.position = "absolute";
-      noBtn.style.left = Math.random()*80 + "vw";
-      noBtn.style.top = Math.random()*60 + "vh";
-    }
+    noBtn.style.position = "absolute";
+    noBtn.style.left = Math.random()*80 + "vw";
+    noBtn.style.top = Math.random()*60 + "vh";
   }
 
-  window.checkPassword = function() {
-    if (passwordInput.value === "nourane") {
-      questionBox.classList.remove("hidden");
-    } else {
-      alert("Mot de passe incorrect 💔");
-    }
+  window.checkPassword = () => {
+    if (passwordInput.value === "nourane") questionBox.classList.remove("hidden");
+    else alert("Mot de passe incorrect 💔");
   };
 
-  window.checkAnswer = function() {
-    if (answerInput.value.toLowerCase() === "habibi") {
-      resultMessage.innerText = "You got it right +1 🎉💖";
-    } else {
-      resultMessage.innerText = "Essaie encore 🥺";
-    }
+  window.checkAnswer = () => {
+    resultMessage.innerText = answerInput.value.toLowerCase() === "habibi"
+      ? "You got it right +1 🎉💖"
+      : "Essaie encore 🥺";
   };
 
   function updateLoveCounter() {
     const startDate = new Date("2023-11-13");
-    const diffDays = Math.floor((new Date() - startDate) / (1000*60*60*24));
+    const diffDays = Math.floor((new Date() - startDate)/(1000*60*60*24));
     loveCounter.innerText = "Ensemble depuis " + diffDays + " jours ❤️";
   }
 
